@@ -12,7 +12,6 @@ public class ArrayStorage {
     void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
-
         }
         size = 0;
     }
@@ -23,15 +22,20 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) return storage[i];
+        int index = getIndex(uuid);
+        if (index < 0) {
+            System.out.println("Find ERROR: "+uuid);
+            return null;
+        } else {
+            return storage[index];
         }
-        return null;
     }
 
     void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index >= 0) {
+        if (index < 0) {
+            System.out.println("Delete ERROR: "+uuid);
+        } else {
             System.arraycopy(storage, index+1, storage, index, size-index);
             storage[size - 1] = null;
             size--;
