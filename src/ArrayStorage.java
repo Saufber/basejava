@@ -1,5 +1,5 @@
 public class ArrayStorage {
-    private final Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
     private int size = 0;
 
     private int getIndex(String uuid) {
