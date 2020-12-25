@@ -1,83 +1,53 @@
-/**
- * Array based storage for Resumes
- */
-
-
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private final Resume[] storage = new Resume[10000];
+    private int size = 0;
 
-
-    private int getIndexNOTnull(Resume[] storage){
-        int index = 0;
-
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
-    private int getIndex(Resume[] buffer, String uuid) {
-
-        for (int i = 0; i < buffer.length; i++) {
-            if (buffer[i].uuid.equals(uuid)) return i;
+    private int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) return i;
         }
         return -1;
     }
 
-
-
     void clear() {
-        for (int i = 0; i < getIndexNOTnull(storage); i++){
-            storage[i]=null;
-        }
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
 
+        }
+        size = 0;
     }
 
     void save(Resume r) {
-        storage[getIndexNOTnull(storage)]=r;
+        storage[size] = r;
+        size++;
     }
 
-    Resume get(String uuid) {
-
-        for (int i = 0; i < getIndexNOTnull(storage); i++) {
-            if (this.getAll()[i].uuid.equals(uuid)) return this.getAll()[i];
+    public Resume get(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) return storage[i];
         }
         return null;
     }
 
     void delete(String uuid) {
-        Resume[] buffer1 = this.getAll();
-        Resume[] buffer2 = new Resume[this.getAll().length-1];
-
-        int index = getIndex(buffer1,uuid);
-
-        // Copy the elements at the left of the index.
-        System.arraycopy(buffer1, 0, buffer2, 0, index);
-        // Copy the elements at the right of the index.
-        System.arraycopy(buffer1, index + 1, buffer2, index, buffer1.length - index - 1);
-
-        //System.out.println(Arrays.toString(buffer2));
-
-        System.arraycopy(buffer2, 0, storage, 0, buffer2.length);
-        storage[buffer1.length-1]=null;
-
+        int index = getIndex(uuid);
+        if (index >= 0) {
+            System.arraycopy(storage, index+1, storage, index, size-index);
+            storage[size - 1] = null;
+            size--;
+        }
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-
-        Resume[] storageNOTnull = new Resume[getIndexNOTnull(storage)];
-        if (getIndexNOTnull(storage) >= 0) System.arraycopy(storage, 0, storageNOTnull, 0, getIndexNOTnull(storage));
-
-        return storageNOTnull;
+        Resume[] storageNONull = new Resume[size];
+        if (size >= 0) System.arraycopy(storage, 0, storageNONull, 0, size);
+        return storageNONull;
     }
 
     int size() {
-        return getIndexNOTnull(storage);
+        return size;
     }
 }
