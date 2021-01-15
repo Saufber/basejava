@@ -10,18 +10,18 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        int index = getIndex(r.uuid);
+        int index = getIndex(r.getUuid());
         if (index == -1) {
-            System.out.println("Resume " + r.uuid + " not exist");
+            System.out.println("Resume " + r.getUuid() + " not exist");
         } else {
             storage[index] = r;
         }
     }
-    
+
     public void save(Resume r) {
-        if (getIndex(r.uuid) != -1) {
-            System.out.println("Resume " + r.uuid + " already exist");
-        } else if(size == storage.length) {
+        if (getIndex(r.getUuid()) != -1) {
+            System.out.println("Resume " + r.getUuid() + " already exist");
+        } else if (size == storage.length) {
             System.out.println("Storage overflow");
         } else {
             storage[size] = r;
@@ -44,7 +44,7 @@ public class ArrayStorage {
         if (index == -1) {
             System.out.println("Resume  " + uuid + " not exist");
         } else {
-            System.arraycopy(storage, index+1, storage, index, size-index);
+            System.arraycopy(storage, index + 1, storage, index, size - index);
             storage[size - 1] = null;
             size--;
         }
