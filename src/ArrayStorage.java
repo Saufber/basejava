@@ -1,4 +1,4 @@
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
     private static final int STORAGE_LIMIT = 10000;
     private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
@@ -54,13 +54,13 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         Resume[] result = new Resume[size];
         if (size >= 0) System.arraycopy(storage, 0, result, 0, size);
         return result;
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 
