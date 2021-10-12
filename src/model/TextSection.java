@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class TextSection extends Section{
     private final String content;
 
@@ -7,14 +9,24 @@ public class TextSection extends Section{
         this.content = content;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+    public String getContent() {
+        Objects.requireNonNull(content, "content must not be null");
+        return content;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TextSection that = (TextSection) o;
+
+        return content.equals(that.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return content.hashCode();
     }
 
     @Override

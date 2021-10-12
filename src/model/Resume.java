@@ -38,8 +38,8 @@ public class Resume implements Comparable<Resume> {
         return contacts.get(type);
     }
 
-    public String getSection(SectionType type) {
-        return contacts.get(type);
+    public Section getSection(SectionType type) {
+        return sections.get(type);
     }
 
     @Override
