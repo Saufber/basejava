@@ -32,6 +32,24 @@ public class Organization {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Organization that = (Organization) o;
+
+        if (!Objects.equals(homePage, that.homePage)) return false;
+        return Objects.equals(positions, that.positions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = homePage != null ? homePage.hashCode() : 0;
+        result = 31 * result + (positions != null ? positions.hashCode() : 0);
+        return result;
+    }
+
     public static class Position {
         private final LocalDate startDate;
         private final LocalDate endDate;

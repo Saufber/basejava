@@ -1,10 +1,15 @@
 package model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganizationSection extends Section {
     private final List<Organization> organization;
+
+    public OrganizationSection(Organization... organization){
+        this (Arrays.asList(organization));
+    }
 
     public OrganizationSection(List<Organization> organization) {
         Objects.requireNonNull(organization, "organization must not be null");
