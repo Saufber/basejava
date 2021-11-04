@@ -8,23 +8,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Array based storage for Resumes
- */
 public abstract class AbstractStorage<SK> implements Storage {
+
+    //    protected final Logger LOG = Logger.getLogger(getClass().getName());
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
+
+    protected abstract SK getSearchKey(String uuid);
 
     protected abstract void doUpdate(Resume r, SK searchKey);
 
     protected abstract boolean isExist(SK searchKey);
 
-    protected abstract SK getSearchKey(String uuid);
-
     protected abstract void doSave(Resume r, SK searchKey);
 
-    protected abstract void doDelete(SK searchKey);
-
     protected abstract Resume doGet(SK searchKey);
+
+    protected abstract void doDelete(SK searchKey);
 
     protected abstract List<Resume> doCopyAll();
 
@@ -46,13 +45,11 @@ public abstract class AbstractStorage<SK> implements Storage {
         doDelete(searchKey);
     }
 
-
     public Resume get(String uuid) {
         LOG.info("Get " + uuid);
         SK searchKey = getExistedSearchKey(uuid);
         return doGet(searchKey);
     }
-
 
     private SK getExistedSearchKey(String uuid) {
         SK searchKey = getSearchKey(uuid);
@@ -79,6 +76,4 @@ public abstract class AbstractStorage<SK> implements Storage {
         Collections.sort(list);
         return list;
     }
-
-
 }
